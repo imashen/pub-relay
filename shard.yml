@@ -1,0 +1,38 @@
+name: pub-relay
+version: 1.0.0
+
+authors:
+  - RX14 <chris@rx14.co.uk>
+  - noellabo <noel.yoshiba@gmail.com>
+  - Candinya <dev@candinya.com>
+  - Ashen <i@imashen.cn>
+
+dependencies:
+  earl:
+    github: ysbaddaden/earl
+    branch: master
+  openssl_ext:
+    github: stakach/openssl_ext
+    version: '~> 1.2.2'
+  redis:
+    github: noellabo/crystal-redis
+    branch: master
+  dotenv:
+    github: gdotdesign/cr-dotenv
+    version: '~> 0.7.0'
+  circuit_breaker:
+    github: tpei/circuit_breaker
+    branch: master
+
+development_dependencies:
+  webmock:
+    github: manastech/webmock.cr
+    version: '~> 0.13.0'
+
+targets:
+  pub-relay:
+    main: src/entrypoint.cr
+
+crystal: 0.35.1
+
+license: AGPL3

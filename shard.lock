@@ -1,0 +1,30 @@
+version: 2.0
+shards:
+  circuit_breaker:
+    git: https://github.com/tpei/circuit_breaker.git
+    version: 0.0.5+git.commit.ff3e5e6fca31969ff2f0e3661cef5b2118478c6d
+
+  dotenv:
+    git: https://github.com/gdotdesign/cr-dotenv.git
+    version: 0.7.0
+
+  earl:
+    git: https://github.com/ysbaddaden/earl.git
+    version: 0.2.0+git.commit.2a732dfcca8241eaca86dc24c41435d7032dd5f2
+
+  openssl_ext:
+    git: https://github.com/stakach/openssl_ext.git
+    version: 1.2.2
+
+  pool:
+    git: https://github.com/watzon/pool.git
+    version: 0.3.0
+
+  redis:
+    git: https://github.com/noellabo/crystal-redis.git
+    version: 2.6.0+git.commit.564ec37a6ffdf29fefe8a7c26696765203138df3
+
+  webmock:
+    git: https://github.com/manastech/webmock.cr.git
+    version: 0.13.0
+
