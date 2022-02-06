@@ -43,7 +43,7 @@ jobs:
           file: ./Dockerfile
           pull: true
           push: true
-          cache-from: type=registry,ref=mashirozx/mastodon:dev
+          cache-from: type=registry,ref=imashen/pub-relay:dev
           cache-to: type=inline
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           tags: |
