@@ -1,4 +1,4 @@
-name: Build Dev Image
+name: Build Alpha Image
 
 on:
   push:
