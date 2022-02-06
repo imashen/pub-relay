@@ -1,35 +1,46 @@
-name: Build Image
- 
+name: Manual Build Docker Image
+
 on:
   push:
-    branches:
-      - 'main'
-    paths-ignore:
-      - "README.md"
- 
+    paths:
+      - "ReleaseTag"
+  workflow_dispatch:
+
 jobs:
   buildx:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Dockerhub login
-        env:
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: |
-          echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
+      - name: 🔍Checkout
+        uses: actions/checkout@v2
+
+      # Docker Image 构建环境
+      - name: 🗳️Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: 🗳️Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: 🤖Login to DockerHub
+        uses: docker/login-action@v1 
         with:
-          buildx-version: latest
-      - name: Build dockerfile (with push)
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 获得仓库中的ReleaseTag
+      - name: 🗳️Set Version
+        id: set-version
         run: |
-          docker buildx build \
-          --platform=linux/amd64,linux/arm/v7,linux/arm64 \
-          --output "type=image,push=true" \
-          --file ./Dockerfile . \
-          --tag imashen/pub-relay:latest
+          echo "::set-output name=version::$(cat ReleaseTag | head -n1)"
+          echo "ReleaseTag=$(cat ReleaseTag | head -n1)" 
+          echo "::set-output name=status::success"
+      # Build and push
+      - name: 💕❤️Build and push
+        if: steps.set-version.outputs.status == 'success'
+        uses: docker/build-push-action@v2
+        with:
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          push: true
+          tags: |
+            imashen/pub-relay:${{ steps.set-version.outputs.version }}
+            imashen/pub-relay:latest
