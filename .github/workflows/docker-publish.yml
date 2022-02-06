@@ -36,5 +36,3 @@ jobs:
           cache-to: type=inline
           tags: |
             imashen/pub-relay:alpha
-            imashen/pub-relay:latest
-            imashen/pub-relay:sha-${{steps.vars.outputs.sha_short}}
