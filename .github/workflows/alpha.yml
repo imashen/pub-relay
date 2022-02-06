@@ -35,4 +35,4 @@ jobs:
           cache-from: type=registry,ref=imashen/pub-relay:alpha
           cache-to: type=inline
           tags: |
-            imashen/pub-relay:alpha
+            imashen/pub-relay:alpha-${{steps.vars.outputs.sha_short}}
