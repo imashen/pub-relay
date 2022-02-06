@@ -47,4 +47,4 @@ jobs:
           platforms: linux/amd64
           tags: |
             imashen/pub-relay:dev
-            imashen/pub-relay:dev-${{steps.vars.outputs.sha_short}}
+            imashen/pub-relay:dev-${{steps.set-version.outputs.sha_short}}
