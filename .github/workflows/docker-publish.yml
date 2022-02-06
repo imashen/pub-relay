@@ -44,7 +44,7 @@ jobs:
           push: true
           cache-from: type=registry,ref=imashen/pub-relay:dev
           cache-to: type=inline
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           tags: |
             imashen/pub-relay:dev
             imashen/pub-relay:dev-${{steps.vars.outputs.sha_short}}
